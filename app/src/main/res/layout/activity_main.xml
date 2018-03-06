@@ -6,13 +6,51 @@
     android:layout_height="match_parent"
     tools:context="xyz.robertsen.volleyexample.MainActivity">
 
-    <TextView
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:elevation="5dp"
+        android:background="@drawable/shape_main_background"
+        app:layout_constraintBottom_toTopOf="@id/button_main_fetch2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_main_fetch1"
+        android:onClick="onButton1Clicked"
+        style="@style/main_Buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="Hent data"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/button_main_fetch2" />
+
+    <Button
+        android:id="@+id/button_main_fetch2"
+        android:onClick="onButton2Clicked"
+        style="@style/main_Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Hent data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
