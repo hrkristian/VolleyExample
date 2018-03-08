@@ -30,27 +30,39 @@
 
     <Button
         android:id="@+id/button_main_fetch1"
-        android:onClick="onButton1Clicked"
         style="@style/main_Buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Hent data"
+        android:onClick="onButton1Clicked"
+        android:text="Hent tekst"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_main_fetch2" />
+        app:layout_constraintEnd_toStartOf="@+id/button_main_fetch3" />
 
     <Button
         android:id="@+id/button_main_fetch2"
-        android:onClick="onButton2Clicked"
         style="@style/main_Buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Hent data"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onButton2Clicked"
+        android:text="Hent JSON"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button_main_fetch3"
+        style="@style/main_Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onButton3Clicked"
+        android:text="Hent bilde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_main_fetch2" />
 
 
 </android.support.constraint.ConstraintLayout>

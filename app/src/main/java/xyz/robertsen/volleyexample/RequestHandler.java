@@ -1,25 +1,32 @@
 package xyz.robertsen.volleyexample;
 
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
 class RequestHandler {
+
     private final RequestQueue queue;
 
     RequestHandler(@NonNull Context c) {
         this.queue = Volley.newRequestQueue(c);
     }
 
-    void sendStringRequest(String url, @NonNull final ResponseHandler command) {
-        Log.i("RequestHandler", "Sending request...");
+    void sendStringRequest(String url, @NonNull final StringResponseHandler handler) {
 
         StringRequest request = new StringRequest(
                 Request.Method.GET,
@@ -27,24 +34,74 @@ class RequestHandler {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        command.handleResponse(response);
+                        handler.onStringResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        command.handleErrorResponse(error);
+                        handler.onError(error);
                     }
                 }
         );
         queue.add(request);
     }
 
-    /**
-     * Command Pattern as a contract between the RequestHandler and invoker
-     */
-    interface ResponseHandler {
-        void handleResponse(String response);
-        void handleErrorResponse(VolleyError error);
+    void sendImageRequest(String url, int maxWidth, int maxHeight, @NonNull final ImageResponseHandler handler) {
+        ImageRequest request = new ImageRequest(
+                url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        handler.onImageResponse(response);
+                    }
+                },
+                maxWidth,
+                maxHeight,
+                ImageView.ScaleType.CENTER,
+                Bitmap.Config.RGB_565,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        handler.onError(error);
+                    }
+                });
+        queue.add(request);
+    }
+
+    void sendJsonRequest(String url, @NonNull final JSONResponseHandler handler) {
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        handler.onJSONResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        handler.onError(error);
+                    }
+                }
+        );
+        queue.add(request);
+    }
+
+    public interface StringResponseHandler {
+        void onStringResponse(String response);
+        void onError(VolleyError error);
+    }
+
+    public interface ImageResponseHandler {
+        void onImageResponse(Bitmap bitmap);
+        void onError(VolleyError error);
+    }
+
+    public interface JSONResponseHandler {
+        void onJSONResponse(JSONObject response);
+        void onError(VolleyError error);
     }
 }
